@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>赛博前线2077启动端</title>
+    <style>
+        /* 全局样式：模拟终端黑底 */
+        body {
+            margin: 0;
+            padding: 40px;
+            background-color: #000000;
+            color: #00ffff; /* 荧光蓝 */
+            font-family: "SimHei", "Microsoft YaHei", monospace;
+            font-size: 28px;
+            line-height: 1.8;
+        }
+
+        /* 标题样式 */
+        h1 {
+            text-align: center;
+            font-size: 52px;
+            margin: 0 0 30px 0;
+            color: #00ffff;
+            font-weight: normal;
+        }
+
+        /* 系统公告 */
+        .notice {
+            margin-bottom: 35px;
+            color: #00ffff;
+        }
+
+        /* 服务器列表标题 */
+        .server-title {
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: #00ffff;
+        }
+
+        /* 服务器列表项 */
+        .server-item {
+            margin: 12px 0;
+            color: #00ffff;
+        }
+
+        /* 停机维护的服务器样式（灰色） */
+        .server-maintenance {
+            color: #666666;
+			text-decoration: line-through;
+        }
+
+        /* 启动按钮样式 */
+        .start-btn {
+            margin-top: 50px;
+            color: #ffffff;
+            font-size: 30px;
+        }
+    </style>
+</head>
+<body>
+	<div class="container">
+    <h1>《赛博前线 2077》启动端</h1>
+
+    <div class="notice">
+        系统公告：S4 赛季 “重返夜之城” 已正式上线，请玩家选择服务器进入游戏，祝您武运昌隆！
+    </div>
+
+    <div class="server-title">服务器列表：</div>
+
+    <div class="server-item">网通一区（空闲）</div>
+    <div class="server-item">电信二区（拥挤）</div>
+    <div class="server-item server-maintenance">测试专区（停机维护中）</div>
+
+    <div class="start-btn">
+        &gt;&gt; 立即启动游戏 &lt;&lt;
+    </div>
+</body>
+</html>

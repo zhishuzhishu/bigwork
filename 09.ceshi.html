@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>表单界面</title>
+    <style>
+        /* 全局基础样式 */
+        body {
+            font-family: "Microsoft Yahei", sans-serif;
+            padding: 20px;
+            line-height: 2.6;
+            font-size: 18px;
+        }
+
+        /* 表单分组：每个字段一行 */
+        .form-group {
+            margin-bottom: 8px;
+        }
+
+        /* 标签样式：固定宽度对齐 */
+        label {
+            display: inline-block;
+            width: 60px;
+        }
+
+        /* 通用输入框样式 */
+        input[type="text"],
+        input[type="password"],
+        input[type="date"],
+        input[type="time"],
+        input[type="datetime-local"],
+        select {
+            padding: 4px 6px;
+            font-size: 16px;
+            border: 1px solid #999;
+            border-radius: 2px;
+            width: 260px;
+        }
+
+        /* 文件选择框样式 */
+        input[type="file"] {
+            font-size: 16px;
+            padding: 3px;
+        }
+
+        /* 单选/复选框标签重置宽度 */
+        .radio-label, .checkbox-label {
+            width: auto;
+            margin-right: 18px;
+            cursor: pointer;
+        }
+
+        /* 文本域样式 */
+        textarea {
+            width: 320px;
+            height: 220px;
+            border: 1px solid #999;
+            border-radius: 2px;
+            padding: 6px;
+            font-size: 16px;
+            resize: vertical;
+            margin-top: 5px;
+        }
+
+        /* 按钮组 */
+        .btn-group {
+            margin-top: 20px;
+        }
+
+        /* 按钮通用样式 */
+        button {
+            padding: 6px 16px;
+            font-size: 16px;
+            margin-right: 12px;
+            cursor: pointer;
+            border: 1px solid #999;
+            background-color: #f1f1f1;
+            border-radius: 2px;
+        }
+
+        button:hover {
+            background-color: #e4e4e4;
+        }
+    </style>
+</head>
+<body>
+    <form action="submit.php" method="post">
+        <!-- 姓名 -->
+        <div class="form-group">
+            <label for="username">姓名:</label>
+            <input type="text" id="username"  name = "username" value="Tom" >
+        </div>
+
+        <!-- 密码 -->
+        <div class="form-group">
+            <label for="password">密码:</label>
+            <input type="password" id="password"  name = "password" value="••••">
+        </div>
+
+        <!-- 性别（单选） -->
+        <div class="form-group">
+            <label>性别:</label>
+            <input type="radio" name="gender" id="male">
+            <label for="male" class="radio-label">男</label>
+            <input type="radio" name="gender" id="female">
+            <label for="female" class="radio-label">女</label>
+        </div>
+
+        <!-- 爱好（复选） -->
+        <div class="form-group">
+            <label>爱好:</label>
+            <input type="checkbox" name="hobby" id="java">
+            <label for="java" class="checkbox-label">java</label>
+            <input type="checkbox" name="hobby" id="game">
+            <label for="game" class="checkbox-label">game</label>
+            <input type="checkbox" name="hobby" id="sing">
+            <label for="sing" class="checkbox-label">sing</label>
+        </div>
+
+        <!-- 图像（文件选择） -->
+        <div class="form-group">
+            <label>图像:</label>
+            <input type="file" id="avatar">
+            <span>未选择任何文件</span>
+        </div>
+
+        <!-- 生日（日期选择） -->
+        <div class="form-group">
+            <label for="birthday">生日:</label>
+            <input type="date" id="birthday">
+        </div>
+
+        <!-- 时间（时间选择） -->
+        <div class="form-group">
+            <label for="time">时间:</label>
+            <input type="time" id="time">
+        </div>
+
+        <!-- 日期时间（datetime-local） -->
+        <div class="form-group">
+            <label for="datetime">日期时间:</label>
+            <input type="datetime-local" id="datetime">
+        </div>
+
+        <!-- 学历（下拉选择） -->
+        <div class="form-group">
+            <label for="education">学历:</label>
+            <select id="education">
+                <option value="">----------- 请选择 -----------</option>
+                <option value="college">大专</option>
+                <option value="bachelor">本科</option>
+                <option value="master">硕士</option>
+                <option value="doctor">博士</option>
+            </select>
+        </div>
+
+        <!-- 描述（文本域） -->
+        <div class="form-group">
+            <label>描述:</label><br>
+            <textarea id="description"></textarea>
+        </div>
+
+        <!-- 按钮组 -->
+        <div class="btn-group">
+            <button type="button">按钮</button>
+            <button type="reset">重置</button>
+            <button type="submit">提交</button>
+        </div>
+    </form>
+</body>
+</html>
