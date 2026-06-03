@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人中心</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .container{width:900px;margin:40px auto;}
+        .user-info{padding:15px;border:1px #eee solid;margin-bottom:25px;}
+        .order-item{border:1px #eee solid;padding:15px;margin:12px 0;}
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="user-info">
+        <h3>账号信息</h3>
+        <div id="userText"></div>
+        <button id="logout" style="margin-top:10px;">退出登录</button>
+    </div>
+    <h3>我的历史订单</h3>
+    <div id="orderBox"></div>
+    <p style="margin-top:30px;"><a href="../index.html">返回首页</a></p>
+</div>
+<p style="text-align:center">学号：24215220224 | 姓名：陈汉城</p>
+
+<script>
+let login = localStorage.getItem('loginUser');
+//未登录跳转登录
+if(!login){
+    alert('请先登录');location.href='login.html';
+}
+let user = JSON.parse(login);
+document.getElementById('userText').innerText=`当前登录账号：${user.username}`;
+
+//退出登录
+document.getElementById('logout').onclick=()=>{
+    localStorage.removeItem('loginUser');
+    alert('已退出');location.href='../index.html';
+}
+
+//渲染订单
+let allOrder = JSON.parse(localStorage.getItem('orderList'))||[];
+let myOrder = allOrder.filter(v=>v.user===user.username);
+let box=document.getElementById('orderBox');
+if(myOrder.length===0){
+    box.innerHTML='暂无订单';
+}else{
+    myOrder.forEach(ord=>{
+        let div=document.createElement('div');
+        div.className='order-item';
+        let htmlStr=`
+            <p>下单时间：${ord.time}</p>
+            <p>收货人：${ord.name} | ${ord.phone} | ${ord.addr}</p>
+            <p>订单总额：¥${ord.total.toFixed(2)}</p>
+            <p>商品清单：</p>
+        `;
+        ord.goods.forEach(g=>{
+            htmlStr+=`<p>·${g.name} ×${g.num}</p>`;
+        })
+        div.innerHTML=htmlStr;
+        box.appendChild(div);
+    })
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>购物车 | 小兔鲜儿</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .container{width:1100px;margin:30px auto;}
+        .cart-item{display:flex;align-items:center;padding:12px 0;border-bottom:1px #eee solid;}
+        .name{flex:3;}
+        .price{flex:1;text-align:center;}
+        .num-box{flex:1;text-align:center;}
+        .num-box button{width:28px;height:28px;border:none;background:#eee;cursor:pointer;}
+        .num-box input{width:40px;text-align:center;border:1px #eee solid;height:28px;}
+        .subtotal{flex:1;text-align:center;color:#f44336;}
+        .del{flex:1;text-align:center;}
+        .del button{border:none;background:#f44336;color:#fff;padding:4px 8px;cursor:pointer;}
+        .total-bar{margin-top:20px;padding:15px;border-top:2px #eee solid;text-align:right;}
+        #settle{background:#f44336;color:#fff;border:none;padding:10px 25px;font-size:16px;cursor:pointer;margin-left:20px;}
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>我的购物车</h2>
+    <div id="cartWrap"></div>
+    <div class="total-bar">
+        <span>商品合计：<b id="allPrice" style="color:#f44336;font-size:18px">0.00</b> 元</span>
+        <button id="settle">去结算下单</button>
+    </div>
+    <p style="margin-top:20px;"><a href="../index.html">← 返回首页</a></p>
+    <p>学号：24215220224 | 姓名：陈汉城</p>
+</div>
+
+<script>
+let cart = JSON.parse(localStorage.getItem('cart'))||[];
+let wrap = document.getElementById('cartWrap');
+let total = 0;
+if(cart.length===0){
+    wrap.innerHTML = '<p>购物车暂无商品，快去选购！</p>';
+}else{
+    cart.forEach((item,idx)=>{
+        total += item.price*item.num;
+        let div = document.createElement('div');
+        div.className='cart-item';
+        div.innerHTML=`
+            <div class="name">${item.name}</div>
+            <div class="price">¥${item.price}</div>
+            <div class="num-box">
+                <button onclick="sub(${idx})">-</button>
+                <input value="${item.num}" readonly>
+                <button onclick="add(${idx})">+</button>
+            </div>
+            <div class="subtotal">¥${(item.price*item.num).toFixed(2)}</div>
+            <div class="del"><button onclick="del(${idx})">删除</button></div>
+        `;
+        wrap.appendChild(div);
+    })
+}
+document.getElementById('allPrice').innerText = total.toFixed(2);
+
+//数量增减
+function add(i){
+    cart[i].num++;saveCart();location.reload();
+}
+function sub(i){
+    if(cart[i].num<=1)return;
+    cart[i].num--;saveCart();location.reload();
+}
+//删除
+function del(i){
+    cart.splice(i,1);saveCart();location.reload();
+}
+//保存购物车
+function saveCart(){
+    localStorage.setItem('cart',JSON.stringify(cart));
+}
+//结算跳转订单页
+document.getElementById('settle').onclick=()=>{
+    if(cart.length<1){alert('没有商品无法结算');return;}
+    location.href="order.html";
+}
+</script>
+</body>
+</html>

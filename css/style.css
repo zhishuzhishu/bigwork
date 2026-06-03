@@ -20,7 +20,7 @@ ul {
 /* ============== 核心修复：Banner100%铺满 ============== */
 .header-banner {
     width: 100%;
-    height: 400px; /* 固定Banner高度，适配网页 */
+    height: 260px; /* 固定Banner高度，适配网页 */
     position: relative;
     overflow: hidden;
     background: #f5f5f5;
@@ -235,3 +235,62 @@ ul {
     text-align: center;
     font-size: 14px;
 }
+/* ==========新增导航样式========== */
+.container{
+    width: 1200px;
+    margin: 0 auto;
+}
+.top-nav{
+    background:#f44336;
+    padding:12px 0;
+}
+.nav-wrap{
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+}
+.nav-logo{
+    font-size:24px;
+    color:#fff;
+    font-weight:bold;
+}
+.nav-search input{
+    width:320px;
+    height:32px;
+    padding:0 10px;
+    border:none;
+    outline:none;
+}
+.nav-search button{
+    height:32px;
+    border:none;
+    background:#333;
+    color:#fff;
+    padding:0 15px;
+    cursor:pointer;
+}
+.nav-menu a{
+    color:#fff;
+    margin:0 10px;
+    text-decoration:none;
+}
+
+/* 加入购物车按钮样式 */
+.add-cart{
+    margin-top:8px;
+    border:none;
+    background:#f44336;
+    color:#fff;
+    padding:5px 12px;
+    border-radius:3px;
+    cursor:pointer;
+}
+.add-cart:hover{
+    background:#d62828;
+}
+.goods-item,.cg-item{
+    text-align:center;
+    padding:10px;
+}
+.goods-item,.cg-item{transition:0.3s;}
+.goods-item:hover,.cg-item:hover{transform: translateY(-6px);box-shadow:0 5px 15px #eee;}

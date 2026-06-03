@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>商品详情 | 小兔鲜儿</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .container{width:1100px;margin:40px auto;display:flex;gap:50px;align-items:center;}
+        .left{width:480px;}
+        .left img{width:100%;border:1px #eee solid;object-fit:cover;}
+        .right{flex:1;}
+        .g-price{font-size:28px;color:#ff6700;margin:18px 0;font-weight:bold;}
+        .desc-text{color:#555;line-height:1.7;margin-bottom:35px;font-size:15px;}
+        .addcart{background:#f44336;color:#fff;border:none;padding:12px 36px;font-size:17px;cursor:pointer;border-radius:4px;}
+        .addcart:hover{background:#d62828;}
+        .back{display:inline-block;margin-top:25px;color:#666;}
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="left">
+        <img id="goodImg" src="" alt="商品图">
+    </div>
+    <div class="right">
+        <h2 id="goodName"></h2>
+        <div class="g-price">售价：<span id="goodPrice"></span></div>
+        <div class="desc-text" id="goodDesc"></div>
+        <button class="addcart" id="addBtn">加入购物车</button>
+        <br>
+        <a class="back" href="index.html">← 返回首页</a>
+    </div>
+</div>
+<p style="text-align:center;margin:30px 0;">学号：24215220224 | 姓名：陈汉城</p>
+
+<script>
+// 全部分类商品数据库
+let goodsData = [
+    //1.新鲜好物分类
+    {id:1,name:"KN95级莫兰迪色防护口罩",price:79,img:"img/fresh_goods_1.jpg",desc:"细菌过滤率≥98%，内置高熔喷过滤层，莫兰迪多色可选，独立包装，日常通勤、出行防护优选，透气不闷耳。"},
+    {id:2,name:"紫檀外独板三层普洱茶盒",price:566,img:"img/fresh_goods_2.jpg",desc:"精选名贵紫檀实木，整木独板切割无拼接，三层分格收纳，精工打磨，茶道收藏、存茶专用礼盒。"},
+    {id:3,name:"法拉蒙高颜值记事本可定制",price:58,img:"img/fresh_goods_3.jpg",desc:"PU软皮封面，内页80g米黄护眼纸，支持烫金姓名定制，办公记账、学生笔记两用，多配色可选。"},
+    {id:4,name:"科技布布艺沙发",price:3579,img:"img/fresh_goods_4.jpg",desc:"防水防污科技布面料，高回弹海绵填充，实木框架稳固耐磨，小户型客厅百搭，可拆洗布艺。"},
+
+    //2.生鲜馆分类
+    {id:5,name:"云南甘蔗红糖馒头",price:9.99,img:"img/fresh1.png",desc:"农家老面发酵，甘蔗原汁和面无添加蔗糖，手工现蒸速冻，早餐加热即食，松软香甜。"},
+    {id:6,name:"进口车厘子",price:59.9,img:"img/fresh2.png",desc:"智利原装J级大果，果径28mm+，果肉饱满脆嫩，汁水充沛，现摘冷链保鲜，当季新鲜水果。"},
+    {id:7,name:"新鲜草莓",price:29.9,img:"img/fresh3.png",desc:"露天奶油草莓，自然成熟不催熟，果香浓郁，酸甜多汁，净重盒装，烘焙、生吃均可。"},
+    {id:8,name:"鲜切牛肉",price:89.9,img:"img/fresh4.png",desc:"谷饲黄牛后腿原切，无注水无拼接，肥瘦均衡，适合煎烤、涮火锅，冷链锁鲜分装。"},
+
+    //3.服饰馆分类
+    {id:9,name:"春季新款连衣裙",price:199,img:"img/clothes1.png",desc:"早春收腰碎花连衣裙，A字宽松版型，透气雪纺面料，显瘦遮肉，日常出游通勤百搭。"},
+    {id:10,name:"休闲牛仔裤",price:129,img:"img/clothes2.png",desc:"高弹水洗棉牛仔面料，直筒阔腿版型，修饰腿型，四季百搭，多尺码可选。"},
+    {id:11,name:"纯棉T恤",price:59,img:"img/clothes3.png",desc:"100%精梳全棉，重磅不透肉，简约基础款，多色可选，内搭外穿两用。"},
+    {id:12,name:"运动外套",price:159,img:"img/clothes4.png",desc:"轻薄防风梭织面料，连帽拉链款，透气速干，跑步健身、日常休闲穿搭。"},
+
+    //4.餐厨馆分类
+    {id:13,name:"不粘炒锅",price:199,img:"img/kitchen1.png",desc:"麦饭石不粘涂层，加厚复合锅底，燃气灶电磁炉通用，少油烟易清洗，家用32cm大容量。"},
+    {id:14,name:"玻璃水杯",price:29.9,img:"img/kitchen2.png",desc:"高硼硅耐热玻璃杯，防爆耐冷热温差，带刻度，喝水泡花茶专用，四只礼盒装。"},
+    {id:15,name:"烘焙模具",price:39.9,img:"img/kitchen3.png",desc:"食品级硅胶材质，耐高温230℃，小蛋糕、玛芬专用模具，易脱模无残留。"},
+    {id:16,name:"刀具套装",price:129,img:"img/kitchen4.png",desc:"不锈钢五件套刀具，切片刀+骨刀+水果刀+剪刀+刀座，家用厨房全套厨具。"},
+
+    //5.居家馆【你截图的纯棉四件套在这里】
+    {id:17,name:"纯棉四件套",price:299,img:"img/home1.png",desc:"100%精梳全棉面料，活性印染不起球不褪色，格子简约风，床单+被套+两只枕套，四季通用，亲肤透气。"},
+    {id:18,name:"抱枕靠垫",price:39.9,img:"img/home2.png",desc:"羽绒棉内芯，短绒磨毛面料，方形百搭靠枕，沙发床头倚靠，多花色随机。"},
+    {id:19,name:"香薰蜡烛",price:49.9,img:"img/home3.png",desc:"天然大豆蜡+植物精油，无烟慢燃，卧室助眠香氛，多款香型可选。"},
+    {id:20,name:"收纳箱",price:59.9,img:"img/home4.png",desc:"加厚PP塑料收纳箱，带卡扣防尘，衣物玩具储物，可叠加大容量。"}
+]
+
+//默认展示：居家馆纯棉四件套（你截图商品）
+let nowId = location.search ? location.search.split('=')[1] : 17;
+let currGood = goodsData.find(item=>item.id == nowId);
+
+//页面填充数据
+document.getElementById('goodImg').src = currGood.img;
+document.getElementById('goodName').innerText = currGood.name;
+document.getElementById('goodPrice').innerText = '¥'+currGood.price;
+document.getElementById('goodDesc').innerText = currGood.desc;
+
+//加入购物车逻辑
+let cart = JSON.parse(localStorage.getItem('cart'))||[];
+document.getElementById('addBtn').onclick = function(){
+    let findGood = cart.find(g=>g.name === currGood.name);
+    findGood ? findGood.num++ : cart.push({name:currGood.name,price:currGood.price,num:1});
+    localStorage.setItem('cart',JSON.stringify(cart));
+    alert(`【${currGood.name}】已成功加入购物车！`);
+}
+</script>
+</body>
+</html>

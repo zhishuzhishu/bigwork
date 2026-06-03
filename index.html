@@ -5,23 +5,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>小兔鲜儿 - 魅力早春新品上市</title>
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* 轮播简易样式 */
+        .banner-box{position:relative;overflow:hidden;height:320px;}
+        .banner-img{width:100%;height:320px;object-fit:cover;}
+        .banner-btn{position:absolute;top:50%;transform:translateY(-50%);width:35px;height:45px;background:rgba(0,0,0,0.3);color:#fff;border:none;font-size:20px;cursor:pointer;}
+        .prev{left:10px;}
+        .next{right:10px;}
+        /* 分类导航 */
+        .category-nav{background:#f8f8f8;padding:12px 0;margin-bottom:10px;}
+        .category-nav .container{width:1200px;margin:0 auto;}
+        .category-nav a{margin:0 12px;text-decoration:none;color:#333;}
+        .category-nav a:hover{color:#f44336;}
+    </style>
 </head>
 <body>
-    <!-- 头部banner区 -->
-    <header class="header-banner">
-        <div class="banner-content">
-            <img src="img/banner_1.png" alt="banner">
-            <h1>小兔鲜儿</h1>
-            <p>魅力早春 <span>新品上市</span></p>
-            <p>2019 NEW SPRING IN FEBRUARY</p>
-            <a href="#" class="btn-go">GO</a>
+<!--顶部导航栏-->
+<nav class="top-nav">
+    <div class="container nav-wrap">
+        <div class="nav-logo">小兔鲜儿</div>
+        <div class="nav-search">
+            <input type="text" placeholder="搜索生鲜、服饰好物..." id="search-input">
+            <button id="search-btn">搜索</button>
         </div>
-    </header>
+        <div class="nav-menu">
+            <a href="login.html">登录/注册</a>
+            <a href="cart.html">🛒购物车</a>
+            <a href="user.html">个人中心</a>
+        </div>
+    </div>
+</nav>
+
+<!--全品类分类导航-->
+<div class="category-nav">
+    <div class="container">
+        <a href="#fresh">生鲜馆</a>
+        <a href="#clothes">服饰馆</a>
+        <a href="#kitchen">餐厨馆</a>
+        <a href="#home">居家馆</a>
+    </div>
+</div>
+
+<!--头部banner轮播-->
+<div class="banner-box">
+    <img class="banner-img" id="banImg" src="img/banner_1.png" alt="banner">
+    <button class="banner-btn prev" id="preBtn">&lt;</button>
+    <button class="banner-btn next" id="nexBtn">&gt;</button>
+</div>
 
     <!-- 新鲜好物区 -->
     <section class="fresh-goods">
         <div class="container">
-            <!-- 学号姓名区域 -->
              <div class="student-info">
                 <p>学号：24215220224</p>
                 <p>姓名：陈汉城</p>
@@ -30,28 +64,40 @@
             <p class="section-desc">新鲜出炉 品质靠谱</p>
             <div class="goods-list">
                 <div class="goods-item">
+                    <a href="goods_detail.html?id=1">
                     <img src="img/fresh_goods_1.jpg" alt="KN95口罩">
                     <h3>KN95级莫兰迪色防护口罩</h3>
                     <p>细菌过滤率≥98% 含熔喷布</p>
                     <span class="price">¥79</span>
+                    </a>
+                    <button class="add-cart" data-name="KN95级莫兰迪色防护口罩" data-price="79">加入购物车</button>
                 </div>
                 <div class="goods-item">
+                    <a href="goods_detail.html?id=2">
                     <img src="img/fresh_goods_2.jpg" alt="普洱茶盒">
                     <h3>紫檀外独板三层普洱茶盒</h3>
                     <p>高端实木工艺</p>
                     <span class="price">¥566</span>
+                    </a>
+                    <button class="add-cart" data-name="紫檀外独板三层普洱茶盒" data-price="566">加入购物车</button>
                 </div>
                 <div class="goods-item">
+                    <a href="goods_detail.html?id=3">
                     <img src="img/fresh_goods_3.jpg" alt="记事本">
                     <h3>法拉蒙高颜值记事本可定制</h3>
                     <p>办公学习必备</p>
                     <span class="price">¥58</span>
+                    </a>
+                    <button class="add-cart" data-name="法拉蒙高颜值记事本可定制" data-price="58">加入购物车</button>
                 </div>
                 <div class="goods-item">
+                    <a href="goods_detail.html?id=4">
                     <img src="img/fresh_goods_4.jpg" alt="沙发">
                     <h3>科技布布艺沙发</h3>
                     <p>舒适耐用百搭家居</p>
                     <span class="price">¥3579</span>
+                    </a>
+                    <button class="add-cart" data-name="科技布布艺沙发" data-price="3579">加入购物车</button>
                 </div>
             </div>
         </div>
@@ -102,62 +148,74 @@
         </div>
     </section>
 
-    <!-- 分类馆：生鲜/服装/餐厨/居家 -->
+    <!-- 分类馆：生鲜/服装/餐厨/居家 锚点id-->
     <section class="category">
         <div class="container">
-            <div class="category-box">
+            <div class="category-box" id="fresh">
                 <h3 class="category-title">生鲜馆</h3>
                 <div class="category-goods">
                     <div class="cg-item">
+                        <a href="goods_detail.html?id=5">
                         <img src="img/fresh1.png" alt="">
                         <h4>云南甘蔗红糖馒头</h4>
                         <span class="cg-price">¥9.99</span>
+                        </a>
+                        <button class="add-cart" data-name="云南甘蔗红糖馒头" data-price="9.99">加购</button>
                     </div>
                     <div class="cg-item">
+                        <a href="goods_detail.html?id=6">
                         <img src="img/fresh2.png" alt="">
                         <h4>进口车厘子</h4>
                         <span class="cg-price">¥59.9</span>
+                        </a>
+                        <button class="add-cart" data-name="进口车厘子" data-price="59.9">加购</button>
                     </div>
                     <div class="cg-item">
+                        <a href="goods_detail.html?id=7">
                         <img src="img/fresh3.png" alt="">
                         <h4>新鲜草莓</h4>
                         <span class="cg-price">¥29.9</span>
+                        </a>
+                        <button class="add-cart" data-name="新鲜草莓" data-price="29.9">加购</button>
                     </div>
                     <div class="cg-item">
+                        <a href="goods_detail.html?id=8">
                         <img src="img/fresh4.png" alt="">
                         <h4>鲜切牛肉</h4>
                         <span class="cg-price">¥89.9</span>
+                        </a>
+                        <button class="add-cart" data-name="鲜切牛肉" data-price="89.9">加购</button>
                     </div>
                 </div>
             </div>
 
-            <div class="category-box">
+            <div class="category-box" id="clothes">
                 <h3 class="category-title">服饰馆</h3>
                 <div class="category-goods">
-                    <div class="cg-item"><img src="img/clothes1.png" alt=""><h4>春季新款连衣裙</h4><span class="cg-price">¥199</span></div>
-                    <div class="cg-item"><img src="img/clothes2.png" alt=""><h4>休闲牛仔裤</h4><span class="cg-price">¥129</span></div>
-                    <div class="cg-item"><img src="img/clothes3.png" alt=""><h4>纯棉T恤</h4><span class="cg-price">¥59</span></div>
-                    <div class="cg-item"><img src="img/clothes4.png" alt=""><h4>运动外套</h4><span class="cg-price">¥159</span></div>
+                    <div class="cg-item"><a href="goods_detail.html?id=9"><img src="img/clothes1.png" alt=""><h4>春季新款连衣裙</h4><span class="cg-price">¥199</span></a><button class="add-cart" data-name="春季新款连衣裙" data-price="199">加购</button></div>
+                    <div class="cg-item"><a href="goods_detail.html?id=10"><img src="img/clothes2.png" alt=""><h4>休闲牛仔裤</h4><span class="cg-price">¥129</span></a><button class="add-cart" data-name="休闲牛仔裤" data-price="129">加购</button></div>
+                    <div class="cg-item"><a href="goods_detail.html?id=11"><img src="img/clothes3.png" alt=""><h4>纯棉T恤</h4><span class="cg-price">¥59</span></a><button class="add-cart" data-name="纯棉T恤" data-price="59">加购</button></div>
+                    <div class="cg-item"><a href="goods_detail.html?id=12"><img src="img/clothes4.png" alt=""><h4>运动外套</h4><span class="cg-price">¥159</span></a><button class="add-cart" data-name="运动外套" data-price="159">加购</button></div>
                 </div>
             </div>
 
-            <div class="category-box">
+            <div class="category-box" id="kitchen">
                 <h3 class="category-title">餐厨馆</h3>
                 <div class="category-goods">
-                    <div class="cg-item"><img src="img/kitchen1.png" alt=""><h4>不粘炒锅</h4><span class="cg-price">¥199</span></div>
-                    <div class="cg-item"><img src="img/kitchen2.png" alt=""><h4>玻璃水杯</h4><span class="cg-price">¥29.9</span></div>
-                    <div class="cg-item"><img src="img/kitchen3.png" alt=""><h4>烘焙模具</h4><span class="cg-price">¥39.9</span></div>
-                    <div class="cg-item"><img src="img/kitchen4.png" alt=""><h4>刀具套装</h4><span class="cg-price">¥129</span></div>
+                    <div class="cg-item"><a href="goods_detail.html?id=13"><img src="img/kitchen1.png" alt=""><h4>不粘炒锅</h4><span class="cg-price">¥199</span></a><button class="add-cart" data-name="不粘炒锅" data-price="199">加购</button></div>
+                    <div class="cg-item"><a href="goods_detail.html?id=14"><img src="img/kitchen2.png" alt=""><h4>玻璃水杯</h4><span class="cg-price">¥29.9</span></a><button class="add-cart" data-name="玻璃水杯" data-price="29.9">加购</button></div>
+                    <div class="cg-item"><a href="goods_detail.html?id=15"><img src="img/kitchen3.png" alt=""><h4>烘焙模具</h4><span class="cg-price">¥39.9</span></a><button class="add-cart" data-name="烘焙模具" data-price="39.9">加购</button></div>
+                    <div class="cg-item"><a href="goods_detail.html?id=16"><img src="img/kitchen4.png" alt=""><h4>刀具套装</h4><span class="cg-price">¥129</span></a><button class="add-cart" data-name="刀具套装" data-price="129">加购</button></div>
                 </div>
             </div>
 
-            <div class="category-box">
+            <div class="category-box" id="home">
                 <h3 class="category-title">居家馆</h3>
                 <div class="category-goods">
-                    <div class="cg-item"><img src="img/home1.png" alt=""><h4>纯棉四件套</h4><span class="cg-price">¥299</span></div>
-                    <div class="cg-item"><img src="img/home2.png" alt=""><h4>抱枕靠垫</h4><span class="cg-price">¥39.9</span></div>
-                    <div class="cg-item"><img src="img/home3.png" alt=""><h4>香薰蜡烛</h4><span class="cg-price">¥49.9</span></div>
-                    <div class="cg-item"><img src="img/home4.png" alt=""><h4>收纳箱</h4><span class="cg-price">¥59.9</span></div>
+                    <div class="cg-item"><a href="goods_detail.html?id=17"><img src="img/home1.png" alt=""><h4>纯棉四件套</h4><span class="cg-price">¥299</span></a><button class="add-cart" data-name="纯棉四件套" data-price="299">加购</button></div>
+                    <div class="cg-item"><a href="goods_detail.html?id=18"><img src="img/home2.png" alt=""><h4>抱枕靠垫</h4><span class="cg-price">¥39.9</span></a><button class="add-cart" data-name="抱枕靠垫" data-price="39.9">加购</button></div>
+                    <div class="cg-item"><a href="goods_detail.html?id=19"><img src="img/home3.png" alt=""><h4>香薰蜡烛</h4><span class="cg-price">¥49.9</span></a><button class="add-cart" data-name="香薰蜡烛" data-price="49.9">加购</button></div>
+                    <div class="cg-item"><a href="goods_detail.html?id=20"><img src="img/home4.png" alt=""><h4>收纳箱</h4><span class="cg-price">¥59.9</span></a><button class="add-cart" data-name="收纳箱" data-price="59.9">加购</button></div>
                 </div>
             </div>
         </div>
@@ -179,6 +237,7 @@
                 <h3>服务热线</h3>
                 <p>客服电话：400-0000-000</p>
                 <p>工作时间：周一至周日 8:00-18:00</p>
+                <p>学号：24215220224 | 姓名：陈汉城</p>
             </div>
             <div class="qrcode">
                 <div><img src="img/qrcode.png" alt=""><p>微信公众号</p></div>
@@ -186,5 +245,117 @@
             </div>
         </div>
     </footer>
+
+<script>
+//====轮播JS====
+let imgArr = ["img/banner_1.png","img/banner1.png","img/clothes1.png"];
+let index = 0;
+let banImg = document.getElementById("banImg");
+let preBtn = document.getElementById("preBtn");
+let nexBtn = document.getElementById("nexBtn");
+let bannerWrap = document.querySelector('.banner-box');
+let timer;
+
+function change(){
+    banImg.src = imgArr[index];
+}
+
+//自动轮播
+function startTimer(){
+    timer = setInterval(()=>{
+        index++;
+        if(index>=imgArr.length) index=0;
+        change();
+    },3000);
+}
+startTimer();
+
+//鼠标悬停暂停、离开继续
+bannerWrap.onmouseover = ()=> clearInterval(timer);
+bannerWrap.onmouseout = ()=> startTimer();
+
+preBtn.onclick = ()=>{
+    index--;
+    if(index<0) index=imgArr.length-1;
+    change();
+}
+nexBtn.onclick = ()=>{
+    index++;
+    if(index>=imgArr.length) index=0;
+    change();
+}
+
+//购物车存储
+let cartData = JSON.parse(localStorage.getItem('cart')) || [];
+document.querySelectorAll('.add-cart').forEach(btn=>{
+    btn.onclick = function(){
+        let name = this.dataset.name;
+        let price = Number(this.dataset.price);
+        let hasGoods = cartData.find(item=>item.name === name);
+        if(hasGoods){
+            hasGoods.num +=1;
+        }else{
+            cartData.push({name,price,num:1})
+        }
+        localStorage.setItem('cart',JSON.stringify(cartData));
+        alert('加入购物车成功！前往购物车结算？')
+    }
+})
+
+//=====【新版搜索：搜到单个直接跳转详情，多个弹窗选择，无结果提示】=====
+let searchInp = document.getElementById('search-input');
+let searchBtn = document.getElementById('search-btn');
+//商品名+ID映射表（和页面id一一对应）
+const goodsList = [
+    {id:1,name:"KN95级莫兰迪色防护口罩"},
+    {id:2,name:"紫檀外独板三层普洱茶盒"},
+    {id:3,name:"法拉蒙高颜值记事本可定制"},
+    {id:4,name:"科技布布艺沙发"},
+    {id:5,name:"云南甘蔗红糖馒头"},
+    {id:6,name:"进口车厘子"},
+    {id:7,name:"新鲜草莓"},
+    {id:8,name:"鲜切牛肉"},
+    {id:9,name:"春季新款连衣裙"},
+    {id:10,name:"休闲牛仔裤"},
+    {id:11,name:"纯棉T恤"},
+    {id:12,name:"运动外套"},
+    {id:13,name:"不粘炒锅"},
+    {id:14,name:"玻璃水杯"},
+    {id:15,name:"烘焙模具"},
+    {id:16,name:"刀具套装"},
+    {id:17,name:"纯棉四件套"},
+    {id:18,name:"抱枕靠垫"},
+    {id:19,name:"香薰蜡烛"},
+    {id:20,name:"收纳箱"}
+]
+
+searchBtn.onclick = ()=>{
+    let key = searchInp.value.trim();
+    if(!key){
+        alert('请输入搜索关键词');
+        return;
+    }
+    //模糊匹配
+    let result = goodsList.filter(item=>item.name.includes(key));
+    if(result.length === 0){
+        alert('未搜索到对应商品');
+    }else if(result.length ===1){
+        //只有一个商品：直接跳转详情
+        window.location.href = `goods_detail.html?id=${result[0].id}`;
+    }else{
+        //多个商品：弹窗选择，点击对应跳转
+        let selectStr = result.map((item,i)=>`${i+1}、${item.name}`).join("\n");
+        let choose = prompt(`找到多款商品，请输入序号跳转：\n${selectStr}`);
+        let num = Number(choose)-1;
+        if(result[num]){
+            window.location.href = `goods_detail.html?id=${result[num].id}`;
+        }
+    }
+}
+//回车也能搜索
+searchInp.onkeyup = e=>{
+    if(e.key === 'Enter') searchBtn.click();
+}
+</script>
 </body>
 </html>

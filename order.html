@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>订单结算</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .container{width:800px;margin:40px auto;}
+        .addr{margin:20px 0;}
+        .addr input{width:100%;box-sizing:border-box;height:38px;padding:0 10px;margin:8px 0;border:1px #ccc solid;}
+        .goods-list{border:1px #eee solid;padding:15px;margin:20px 0;}
+        .submit{background:#f44336;color:#fff;border:none;padding:10px 35px;cursor:pointer;font-size:16px;}
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>提交订单</h2>
+    <div class="addr">
+        <input id="name" placeholder="收货人姓名">
+        <input id="phone" placeholder="收货人手机号">
+        <input id="address" placeholder="详细收货地址">
+    </div>
+    <div class="goods-list" id="orderGoods"></div>
+    <div>应付总额：<b id="totalMoney" style="color:#f44336;font-size:20px">0</b> 元</div>
+    <div style="margin-top:20px;">
+        <button id="submitOrder" class="submit">确认提交订单</button>
+        <a href="cart.html" style="margin-left:20px;">返回购物车</a>
+    </div>
+</div>
+<p style="text-align:center;margin-top:30px">学号：24215220224 | 姓名：陈汉城</p>
+
+<script>
+let cart = JSON.parse(localStorage.getItem('cart'))||[];
+if(cart.length===0){alert('购物车为空，无法下单');location.href='../index.html';}
+let wrap=document.getElementById('orderGoods');
+let total=0;
+cart.forEach(item=>{
+    total+=item.price*item.num;
+    wrap.innerHTML+=`<p>${item.name} ×${item.num} | 小计：¥${(item.price*item.num).toFixed(2)}</p>`;
+})
+document.getElementById('totalMoney').innerText=total.toFixed(2);
+
+//提交订单
+document.getElementById('submitOrder').onclick=()=>{
+    let name=document.getElementById('name').value.trim();
+    let phone=document.getElementById('phone').value.trim();
+    let addr=document.getElementById('address').value.trim();
+    if(!name||!phone||!addr){alert('收货信息填写完整！');return;}
+    //获取当前登录用户
+    let loginUser = JSON.parse(localStorage.getItem('loginUser'));
+    if(!loginUser){alert('请先登录！跳转登录页');location.href='login.html';return;}
+    //读取已有订单
+    let orderList = JSON.parse(localStorage.getItem('orderList'))||[];
+    orderList.push({
+        user:loginUser.username,
+        goods:cart,
+        total:total,
+        name,phone,addr,
+        time:new Date().toLocaleString()
+    })
+    localStorage.setItem('orderList',JSON.stringify(orderList));
+    //清空购物车
+    localStorage.removeItem('cart');
+    alert('下单成功！前往个人中心查看订单');
+    location.href="user.html";
+}
+</script>
+</body>
+</html>
