@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>购物车 | 小兔鲜儿</title>
     <link rel="stylesheet" href="../css/style.css">
-    <style>
+    <style> /* 购物车样式*/
         .container{width:1100px;margin:30px auto;}
         .cart-item{display:flex;align-items:center;padding:12px 0;border-bottom:1px #eee solid;}
         .name{flex:3;}
@@ -32,7 +32,7 @@
     <p>学号：24215220224 | 姓名：陈汉城</p>
 </div>
 
-<script>
+<script> /* 购物车逻辑 */
 let cart = JSON.parse(localStorage.getItem('cart'))||[];
 let wrap = document.getElementById('cartWrap');
 let total = 0;

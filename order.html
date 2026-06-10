@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>订单结算</title>
     <link rel="stylesheet" href="../css/style.css">
-    <style>
+    <style> /* 订单结算页样式 */
         .container{width:800px;margin:40px auto;}
         .addr{margin:20px 0;}
         .addr input{width:100%;box-sizing:border-box;height:38px;padding:0 10px;margin:8px 0;border:1px #ccc solid;}
@@ -14,7 +14,7 @@
     </style>
 </head>
 <body>
-<div class="container">
+<div class="container"> 
     <h2>提交订单</h2>
     <div class="addr">
         <input id="name" placeholder="收货人姓名">
@@ -30,7 +30,7 @@
 </div>
 <p style="text-align:center;margin-top:30px">学号：24215220224 | 姓名：陈汉城</p>
 
-<script>
+<script> /* 订单结算页逻辑 */
 let cart = JSON.parse(localStorage.getItem('cart'))||[];
 if(cart.length===0){alert('购物车为空，无法下单');location.href='../index.html';}
 let wrap=document.getElementById('orderGoods');
