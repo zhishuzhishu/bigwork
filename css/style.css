@@ -243,6 +243,11 @@ ul {
 .top-nav{
     background:#f44336;
     padding:12px 0;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+.top-nav.scroll-active{
+    background:#d62828;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
 }
 .nav-wrap{
     display:flex;

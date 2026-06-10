@@ -31,11 +31,16 @@
 <p style="text-align:center;margin-top:30px">学号：24215220224 | 姓名：陈汉城</p>
 
 <script> /* 订单结算页逻辑 */
-let cart = JSON.parse(localStorage.getItem('cart'))||[];
-if(cart.length===0){alert('购物车为空，无法下单');location.href='../index.html';}
+// 关键：读取购物车勾选商品
+let selectCart = JSON.parse(localStorage.getItem('selectCart'))||[];
+if(selectCart.length===0){
+    alert('未选择商品或数据异常，返回购物车');
+    location.href='cart.html';
+}
+
 let wrap=document.getElementById('orderGoods');
 let total=0;
-cart.forEach(item=>{
+selectCart.forEach(item=>{
     total+=item.price*item.num;
     wrap.innerHTML+=`<p>${item.name} ×${item.num} | 小计：¥${(item.price*item.num).toFixed(2)}</p>`;
 })
@@ -47,21 +52,30 @@ document.getElementById('submitOrder').onclick=()=>{
     let phone=document.getElementById('phone').value.trim();
     let addr=document.getElementById('address').value.trim();
     if(!name||!phone||!addr){alert('收货信息填写完整！');return;}
+
     //获取当前登录用户
     let loginUser = JSON.parse(localStorage.getItem('loginUser'));
     if(!loginUser){alert('请先登录！跳转登录页');location.href='login.html';return;}
-    //读取已有订单
+
+    //读取已有订单，存入选中的商品
     let orderList = JSON.parse(localStorage.getItem('orderList'))||[];
     orderList.push({
         user:loginUser.username,
-        goods:cart,
+        goods:selectCart,
         total:total,
         name,phone,addr,
         time:new Date().toLocaleString()
     })
     localStorage.setItem('orderList',JSON.stringify(orderList));
-    //清空购物车
-    localStorage.removeItem('cart');
+
+    // 下单后：清空勾选商品临时数据 + 同步清空原购物车对应商品
+    let allCart = JSON.parse(localStorage.getItem('cart'))||[];
+    let newCart = allCart.filter(good => {
+        return !selectCart.some(sg => sg.id === good.id);
+    });
+    localStorage.setItem('cart', JSON.stringify(newCart));
+    localStorage.removeItem('selectCart');
+
     alert('下单成功！前往个人中心查看订单');
     location.href="user.html";
 }

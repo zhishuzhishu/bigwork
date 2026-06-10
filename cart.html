@@ -8,6 +8,7 @@
     <style> /* 购物车样式*/
         .container{width:1100px;margin:30px auto;}
         .cart-item{display:flex;align-items:center;padding:12px 0;border-bottom:1px #eee solid;}
+        .check{flex:0.5;}
         .name{flex:3;}
         .price{flex:1;text-align:center;}
         .num-box{flex:1;text-align:center;}
@@ -18,11 +19,20 @@
         .del button{border:none;background:#f44336;color:#fff;padding:4px 8px;cursor:pointer;}
         .total-bar{margin-top:20px;padding:15px;border-top:2px #eee solid;text-align:right;}
         #settle{background:#f44336;color:#fff;border:none;padding:10px 25px;font-size:16px;cursor:pointer;margin-left:20px;}
+        /* 新增：全选和清空按钮样式 */
+        .cart-top{display:flex;align-items:center;padding:10px 0;border-bottom:1px #eee solid;}
+        .cart-top .check{margin-right:10px;}
+        #clearAll{border:none;background:#666;color:#fff;padding:6px 12px;cursor:pointer;margin-left:20px;}
     </style>
 </head>
 <body>
 <div class="container">
     <h2>我的购物车</h2>
+    <!-- 全选栏 -->
+    <div class="cart-top">
+        <label><input type="checkbox" id="checkAll"> 全选</label>
+        <button id="clearAll">清空购物车</button>
+    </div>
     <div id="cartWrap"></div>
     <div class="total-bar">
         <span>商品合计：<b id="allPrice" style="color:#f44336;font-size:18px">0.00</b> 元</span>
@@ -36,14 +46,23 @@
 let cart = JSON.parse(localStorage.getItem('cart'))||[];
 let wrap = document.getElementById('cartWrap');
 let total = 0;
+
 if(cart.length===0){
     wrap.innerHTML = '<p>购物车暂无商品，快去选购！</p>';
 }else{
     cart.forEach((item,idx)=>{
-        total += item.price*item.num;
+        // 初始化选中状态
+        item.checked = item.checked !== false;
+        // 只计算勾选商品总价
+        if(item.checked){
+            total += item.price*item.num;
+        }
         let div = document.createElement('div');
         div.className='cart-item';
         div.innerHTML=`
+            <div class="check">
+                <input type="checkbox" class="goods-check" data-idx="${idx}" ${item.checked?'checked':''}>
+            </div>
             <div class="name">${item.name}</div>
             <div class="price">¥${item.price}</div>
             <div class="num-box">
@@ -75,9 +94,64 @@ function del(i){
 function saveCart(){
     localStorage.setItem('cart',JSON.stringify(cart));
 }
-//结算跳转订单页
+
+// ================== 全选、单选联动逻辑 ==================
+const checkAll = document.getElementById('checkAll');
+const goodsChecks = document.querySelectorAll('.goods-check');
+
+// 更新全选框状态
+function updateCheckAll(){
+    let allChecked = Array.from(goodsChecks).every(cb => cb.checked);
+    checkAll.checked = allChecked;
+}
+updateCheckAll();
+
+// 全选框控制所有单选
+checkAll.addEventListener('change', ()=>{
+    goodsChecks.forEach(cb => {
+        cb.checked = checkAll.checked;
+        let idx = cb.dataset.idx;
+        cart[idx].checked = checkAll.checked;
+    });
+    saveCart();
+    location.reload();
+});
+
+// 单个商品勾选改变
+goodsChecks.forEach(cb => {
+    cb.addEventListener('change', ()=>{
+        let idx = cb.dataset.idx;
+        cart[idx].checked = cb.checked;
+        updateCheckAll();
+        saveCart();
+        location.reload();
+    });
+});
+
+// ================== 一键清空购物车 ==================
+// 一键清空购物车 - 正确写法
+document.getElementById('clearAll').onclick = () => {
+    if(confirm('确定要清空购物车所有商品吗？')){
+        // 1. 把内存中的 cart 变量置空
+        cart = [];
+        // 2. 同步清空 localStorage 中的购物车数据（关键！）
+        localStorage.setItem('cart', JSON.stringify(cart));
+        // 3. 清空临时结算数据，避免残留
+        localStorage.removeItem('selectCart');
+        // 4. 刷新页面
+        location.reload();
+    }
+}
+// ================== 结算：只提交勾选的商品 ==================
 document.getElementById('settle').onclick=()=>{
-    if(cart.length<1){alert('没有商品无法结算');return;}
+    // 筛选出已勾选的商品
+    let selectGoods = cart.filter(item => item.checked === true);
+    if(selectGoods.length === 0){
+        alert('请至少选择一件商品再结算！');
+        return;
+    }
+    // 关键：把勾选商品写入 selectCart，供订单页读取
+    localStorage.setItem('selectCart',JSON.stringify(selectGoods));
     location.href="order.html";
 }
 </script>
